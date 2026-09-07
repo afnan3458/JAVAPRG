@@ -1,0 +1,122 @@
+import java.util.Scanner;
+
+// Base Class: Students
+class Students {
+    String name;
+    int rollNo;
+    String course;
+
+    void setStudentsDetails(String name, int rollNo, String course) {
+        this.name = name;
+        this.rollNo = rollNo;
+        this.course = course;
+    }
+
+    void displayStudentsDetails() {
+        System.out.println("Name: " + name);
+        System.out.println("RollNo: " + rollNo);
+        System.out.println("Course: " + course);
+    }
+}
+
+// Intermediate Class: StudentAccount (inherits Students)
+class StudentAccount extends Students {
+    double collegeFee;
+
+    void setAccountDetails(double collegeFee) {
+        this.collegeFee = collegeFee;
+    }
+
+    void displayAccountDetails() {
+        System.out.println("CollegeFee:" + collegeFee);
+    }
+}
+
+// Derived Class 1: Hosteller (inherits StudentAccount)
+class Hosteller extends StudentAccount {
+    double hostelFee;
+    double messFee;
+
+    void setHostellerDetails(double hostelFee, double messFee) {
+        this.hostelFee = hostelFee;
+        this.messFee = messFee;
+    }
+
+    void displayHostellerDetails() {
+        System.out.println("\n---HOSTELLERDETAILS---");
+        displayStudentsDetails();
+        displayAccountDetails();
+        System.out.println("HostelFee:" + hostelFee);
+        System.out.println("MessFee:" + messFee);
+        double totalFee = collegeFee + hostelFee + messFee;
+        System.out.println("TotalFee:" + totalFee);
+    }
+}
+
+// Derived Class 2: DayScholar (inherits StudentAccount)
+class DayScholar extends StudentAccount {
+    double busFee;
+
+    void setDayScholarDetails(double busFee) {
+        this.busFee = busFee;
+    }
+
+    void displayDayScholarDetails() {
+        System.out.println("\n---DAYSCHOLARDETAILS---");
+        displayStudentsDetails();
+        displayAccountDetails();
+        System.out.println("BusFee:" + busFee);
+        double totalFee = collegeFee + busFee;
+        System.out.println("TotalFee:" + totalFee);
+    }
+}
+
+// Main Class
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Hosteller Details Reading
+        System.out.print("EnterHosteller'sName: ");
+        String hName = sc.next();
+        System.out.print("EnterRollNo:\n");
+        int hRoll = sc.nextInt();
+        System.out.print("EnterCourse:\n");
+        String hCourse = sc.next();
+        System.out.print("EnterCollegeFee: ");
+        double hCollegeFee = sc.nextDouble();
+        System.out.print("EnterHostelFee: ");
+        double hHostelFee = sc.nextDouble();
+        System.out.print("EnterMessFee:\n");
+        double hMessFee = sc.nextDouble();
+
+        Hosteller hosteller = new Hosteller();
+        hosteller.setStudentsDetails(hName, hRoll, hCourse);
+        hosteller.setAccountDetails(hCollegeFee);
+        hosteller.setHostellerDetails(hHostelFee, hMessFee);
+
+        // DayScholar Details Reading
+        System.out.print("\nEnterDayScholar'sName: ");
+        String dName = sc.next();
+        System.out.print("EnterRollNo: ");
+        int dRoll = sc.nextInt();
+        System.out.print("EnterCourse: ");
+        sc.nextLine(); // clear buffer
+        String dCourse = sc.nextLine();
+        System.out.print("EnterCollegeFee:\n");
+        double dCollegeFee = sc.nextDouble();
+        System.out.print("EnterBusFee:\n");
+        double dBusFee = sc.nextDouble();
+
+        DayScholar dayScholar = new DayScholar();
+        dayScholar.setStudentsDetails(dName, dRoll, dCourse);
+        dayScholar.setAccountDetails(dCollegeFee);
+        dayScholar.setDayScholarDetails(dBusFee);
+
+        // Display Output
+        hosteller.displayHostellerDetails();
+        dayScholar.displayDayScholarDetails();
+
+        sc.close();
+    }
+}
